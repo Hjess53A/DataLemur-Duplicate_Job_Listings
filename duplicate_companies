@@ -1,0 +1,20 @@
+-- This was my initial query
+--SELECT title, company_id, COUNT(*)
+--FROM job_listings
+--GROUP BY title, company_id
+--HAVING COUNT(*) > 1
+
+-- while it did give me an idea which company had duplicates and how many, 
+-- the output being asked was just the number of companies
+
+-- I initialy used CREATE TABLE but it cam back with: Only SELECT queries can be processed!
+-- So instead I used With clause
+-- note: I've also removed the title, and company_id 
+
+with company_count as (SELECT COUNT(company_id)
+FROM job_listings
+GROUP BY company_id
+HAVING COUNT(company_id) > 1)
+
+SELECT Count(*)
+from company_count
